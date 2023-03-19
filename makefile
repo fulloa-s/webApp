@@ -21,6 +21,9 @@ clean: stop
 fclean: clean
 	@ docker rmi -f $$(docker images -aq)
 
+show_database:
+	docker exec server /bin/sh -c "npx prisma studio &"
+
 nodeclean: 
 	@ sudo rm -rf ./srcs/frontend/my-app/node_modules
 	@ sudo rm -rf ./srcs/backend/my-app/node_modules

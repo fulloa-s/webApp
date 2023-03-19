@@ -1,19 +1,10 @@
 // Importing module
-import express from "express";
-import { Z_ASCII } from "zlib";
+import express, { Request, Response } from "express";
+import {userRouter} from "./src/Routes/UserRoute"
 
 const app = express();
 const PORT: Number = 5000;
 
-// Handling GET / Request
-app.get("/", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.send("Welcome to typescript backend!");
-});
+app.use(userRouter);
+app.listen(PORT, () => {});
 
-// Server setup
-app.listen(PORT, () => {
-  console.log(
-    "The application is listening " + "on port http://localhost:" + PORT
-  );
-});

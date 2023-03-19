@@ -5,14 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Importing module
 const express_1 = __importDefault(require("express"));
+const UserRoute_1 = require("./src/Routes/UserRoute");
 const app = (0, express_1.default)();
 const PORT = 5000;
-// Handling GET / Request
-app.get("/", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.send("Welcome to typescript backend!");
-});
-// Server setup
-app.listen(PORT, () => {
-    console.log("The application is listening " + "on port http://localhost:" + PORT);
-});
+app.use(UserRoute_1.userRouter);
+app.listen(PORT, () => { });
