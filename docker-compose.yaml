@@ -1,0 +1,50 @@
+version: "3.5"
+services:
+ dev-db:
+    image: postgres:13
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    networks:
+      - my-net
+ backend:
+    #depends_on:
+    #  - dev-db
+    build:
+      context: ./srcs/backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./srcs/backend/my-app:/my-app/
+    container_name: server
+    ports:
+      - 5000:5000
+      - 5555:5555
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    networks:
+      - my-net
+    #DEV
+    command: sh -c "npm install && npm run dev"
+ frontend:
+    build:
+      context: ./srcs/frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./srcs/frontend/my-app:/my-app
+    container_name: client
+    ports:
+      - 3000:3000 # Specify port-forwarding
+      - 3001:3001
+      - 3002:3002
+    networks:
+      - my-net
+    #DEV
+    command: sh -c "npm install && npm start"
+    #entrypoint: /bin/sh
+    #PROD
+networks:
+  my-net:
