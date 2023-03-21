@@ -25,6 +25,7 @@ services:
       - 5555:5555
     environment:
       DATABASE_URL: ${DATABASE_URL}
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
     networks:
       - my-net
     #DEV

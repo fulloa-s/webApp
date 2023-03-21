@@ -1,7 +1,7 @@
 import React from "react";
 import "../Style/App.css";
 import { Route, Routes } from "react-router-dom";
-import AppBody from "./AppBody";
+import Login from "./Login";
 import Header from "./Header";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       {/* <Header /> */}
       <Routes>
-        <Route path="*" element={<AppBody />} />
+        <Route path="*" element={<Login />} />
       </Routes>
     </div>
   );
