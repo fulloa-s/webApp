@@ -6,21 +6,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const userController_1 = require("../Controllers/userController");
+const authMiddleware_1 = require("../Middlewares/authMiddleware");
 const userRouter = express_1.default.Router();
 exports.userRouter = userRouter;
-userRouter.get("/", (req, res) => {
-    // res.setHeader("Access-Control-Allow-Origin", "*");
-    res.send("Welcome to typescript backend!");
+userRouter.get("/getMe", authMiddleware_1.authMiddleware, (req, res) => {
+    userController_1.authController.getMe(req, res);
 });
 userRouter.post("/createUser", (req, res) => {
-    console.log("create User called!");
     userController_1.authController.registerUser(req, res);
 });
-userRouter.put("/", (req, res) => {
-    // res.setHeader("Access-Control-Allow-Origin", "*");
-    res.send("Welcome to typescript backend!");
+userRouter.post("/login", (req, res) => {
+    userController_1.authController.loginUser(req, res);
 });
-userRouter.delete("/", (req, res) => {
-    // res.setHeader("Access-Control-Allow-Origin", "*");
-    res.send("Welcome to typescript backend!");
+userRouter.post("/logout", authMiddleware_1.authMiddleware, (req, res) => {
+    userController_1.authController.logout(req, res);
 });

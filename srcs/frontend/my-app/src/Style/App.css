@@ -1,11 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
 .App {
-  background-color: #282c34;
-  /* min-height: 100vh;
+  height: 100vh;
   display: flex;
+  /* justify-content: center;
+  align-items: center; */
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white; */
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
 }
 
+#shape1{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  height: auto;
+}

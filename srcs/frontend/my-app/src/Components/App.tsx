@@ -1,16 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../Style/App.css";
-import { Route, Routes } from "react-router-dom";
 import Login from "./Login";
 import Header from "./Header";
+import Home from "./Home";
+import { useGetMe } from "../Hooks/useGetMe";
+import { UserType } from "../Types/UserType";
+
+export const switchComponent = (
+  user: UserType,
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  switch (user.status) {
+    case "logged":
+      return (
+        <div>
+          <Header setLogged={setLogged} />
+          <Home user={user} />
+        </div>
+      );
+    case "notLogged":
+      return <Login setLogged={setLogged} />;
+    default:
+      break;
+  }
+};
 
 function App() {
+  const [logged, setLogged] = useState<boolean>(false);
+  const user: UserType = useGetMe(logged);
+
+  console.log("appRender");
   return (
     <div className="App">
-      {/* <Header /> */}
-      <Routes>
-        <Route path="*" element={<Login />} />
-      </Routes>
+      {switchComponent(user, setLogged)}
+      <img src="./wave.svg" alt="shape1" id="shape1" />
     </div>
   );
 }

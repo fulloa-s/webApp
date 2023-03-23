@@ -1,28 +1,30 @@
 import React, { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import "../Style/Header.css";
 
-export default function Header() {
+const logout = (setLogged: React.Dispatch<React.SetStateAction<boolean>>) => {
+  fetch("http://localhost:5000/logout", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/JSON",
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      setLogged((prev) => !prev);
+    });
+};
+
+export default function Header({
+  setLogged,
+}: {
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
-    <div>
-      <Box sx={{ flexGrow: 1, height: "10vh" }}>
-        <AppBar position="static" sx={{backgroundColor: "#0077B6"}}>
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{
-              flexGrow: 1,
-              fontWeight: "bold"
-            }}>
-              Awesome Website
-            </Typography>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
-      </Box>
+    <div className="header">
+      <button className="button-logout" onClick={() => logout(setLogged)}>
+        Logout
+      </button>
     </div>
   );
 }

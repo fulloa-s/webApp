@@ -6,7 +6,7 @@ function signToken(payload: any) {
     jwt.sign(
       { payload },
       process.env.ACCESS_TOKEN_SECRET,
-      {},
+      { expiresIn: "8h" },
       (err: any, token: any) => {
         if (err) {
           reject(error.InternalServerError());

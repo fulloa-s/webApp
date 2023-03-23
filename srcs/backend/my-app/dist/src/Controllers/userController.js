@@ -34,7 +34,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authController = void 0;
 const userService = __importStar(require("../Services/UserService"));
-const error = require('http-errors');
+const error = require("http-errors");
+const cookieParser = require("cookie-parser");
 class authController {
     static registerUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -42,17 +43,46 @@ class authController {
                 const user = yield userService.registerUser(req.body);
                 res.status(200).json({
                     status: true,
-                    message: 'User created successfully',
-                    data: user.username
+                    message: "User created successfully",
+                    data: user.username,
                 });
             }
             catch (e) {
                 res.status(200).json({
                     status: false,
-                    message: 'User not created'
+                    message: "User not created",
                 });
             }
         });
+    }
+    static loginUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const data = yield userService.login(req.body);
+                let { username, accessToken } = data;
+                res.cookie("accessToken", { username, accessToken }, { httpOnly: true });
+                res.status(200).json({
+                    status: true,
+                    message: "Account login successful",
+                    data: data.username,
+                });
+            }
+            catch (e) {
+                res.status(401).json({
+                    status: false,
+                    message: "User not Logged",
+                });
+            }
+        });
+    }
+    static getMe(req, res) {
+        res
+            .status(200)
+            .json({ status: true, username: req.cookies.accessToken.username });
+    }
+    static logout(req, res) {
+        res.clearCookie("accessToken");
+        res.status(200).json({ status: true, username: "" });
     }
 }
 exports.authController = authController;

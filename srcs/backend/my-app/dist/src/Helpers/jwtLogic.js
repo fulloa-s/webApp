@@ -5,7 +5,7 @@ const error = require("http-errors");
 const jwt = require("jsonwebtoken");
 function signToken(payload) {
     return new Promise((resolve, reject) => {
-        jwt.sign({ payload }, process.env.ACCESS_TOKEN_SECRET, {}, (err, token) => {
+        jwt.sign({ payload }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "8h" }, (err, token) => {
             if (err) {
                 reject(error.InternalServerError());
             }
