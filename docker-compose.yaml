@@ -12,8 +12,8 @@ services:
     networks:
       - my-net
   backend:
-    #depends_on:
-    #  - dev-db
+    depends_on:
+      - dev-db
     build:
       context: ./srcs/backend
       dockerfile: Dockerfile
@@ -29,7 +29,7 @@ services:
     networks:
       - my-net
     #DEV
-    command: sh -c "npm install && npm run dev"
+    command: sh -c "npm install && npx prisma db push && npm run dev"
   frontend:
     build:
       context: ./srcs/frontend
@@ -44,7 +44,7 @@ services:
     networks:
       - my-net
     #DEV
-    command: sh -c "npm install && npm start && npx prisma push db"
+    command: sh -c "npm install && npm start"
     #entrypoint: /bin/sh
     #PROD
 networks:
