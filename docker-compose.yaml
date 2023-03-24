@@ -1,6 +1,6 @@
 version: "3.5"
 services:
- dev-db:
+  dev-db:
     image: postgres:13
     container_name: db
     ports:
@@ -11,7 +11,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     networks:
       - my-net
- backend:
+  backend:
     #depends_on:
     #  - dev-db
     build:
@@ -30,7 +30,7 @@ services:
       - my-net
     #DEV
     command: sh -c "npm install && npm run dev"
- frontend:
+  frontend:
     build:
       context: ./srcs/frontend
       dockerfile: Dockerfile
@@ -44,7 +44,7 @@ services:
     networks:
       - my-net
     #DEV
-    command: sh -c "npm install && npm start"
+    command: sh -c "npm install && npm start && npx prisma push db"
     #entrypoint: /bin/sh
     #PROD
 networks:

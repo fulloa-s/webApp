@@ -1,9 +1,9 @@
 export type UserType = {
-    status: "logged" | "notLogged" | "pending",
-    username: string
-}
+  status: "logged" | "notLogged" | "pending";
+  username: string;
+};
 
 export type newUserType = {
-    username: string,
-    password: string
-}
+  username: string;
+  password: string;
+};

@@ -4,7 +4,7 @@ import { UserType } from "../Types/UserType";
 const useGetMe = (logged: boolean) => {
   const [user, setUser] = useState<UserType>({
     status: "pending",
-    username: ""
+    username: "",
   });
 
   useEffect(() => {
@@ -17,17 +17,16 @@ const useGetMe = (logged: boolean) => {
         if (!fetchRes.status)
           setUser({
             status: "notLogged",
-            username: ""
+            username: "",
           });
         else
-        setUser({
-          status: "logged",
-          username: fetchRes.username
-        });
+          setUser({
+            status: "logged",
+            username: fetchRes.username,
+          });
       });
   }, [logged]);
 
-  console.log("getMe", user.status)
   return user;
 };
 

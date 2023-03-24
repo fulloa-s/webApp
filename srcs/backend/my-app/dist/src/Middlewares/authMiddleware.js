@@ -10,10 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authMiddleware = void 0;
-const jwt = require('../Helpers/jwtLogic');
-const createError = require('http-errors');
+const jwt = require("../Helpers/jwtLogic");
+const createError = require("http-errors");
 const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    // console.log(req.cookies);
     if (!req.cookies.accessToken || req.cookies.accessToken == undefined) {
         return res.json({
             status: false,
@@ -21,11 +20,14 @@ const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         });
     }
     const token = req.cookies.accessToken.accessToken;
-    yield jwt.verifyToken(token).then((user) => {
+    yield jwt
+        .verifyToken(token)
+        .then((user) => {
         req.user = user;
         next();
-    }).catch((e) => {
-        res.clearCookie('accessToken');
+    })
+        .catch((e) => {
+        res.clearCookie("accessToken");
         return res.json({
             status: false,
             message: e.message,

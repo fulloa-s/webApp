@@ -4,7 +4,11 @@ import { newUserType } from "../Types/UserType";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Tooltip } from "@mui/material";
 
-export default function Login({setLogged} : {setLogged: React.Dispatch<React.SetStateAction<boolean>>}) {
+export default function Login({
+  setLogged,
+}: {
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [newUser, setNewUser] = useState<newUserType>({
     username: "",
     password: "",
@@ -13,12 +17,10 @@ export default function Login({setLogged} : {setLogged: React.Dispatch<React.Set
   const [error, setError] = useState<boolean>(false);
 
   const changeNewUser = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(newUser);
     setNewUser({ ...newUser, username: e.target.value });
   };
 
   const changeNewPsw = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(newUser);
     setNewUser({ ...newUser, password: e.target.value });
   };
 
@@ -56,15 +58,13 @@ export default function Login({setLogged} : {setLogged: React.Dispatch<React.Set
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
           if (res.status) {
             setError(false);
-            setLogged(prev => !prev)
+            setLogged((prev) => !prev);
           } else setError(true);
         });
   };
 
-  console.log("render Login");
   return (
     <div className="vertical-container">
       <div className="Login">
@@ -135,7 +135,7 @@ export default function Login({setLogged} : {setLogged: React.Dispatch<React.Set
               <div className="overlay-panel overlay-left">
                 <h1>Welcome Back!</h1>
                 <p>
-                  To keep connected with us please login with your personal info
+                  To keep connected with me please login with your personal info
                 </p>
                 <button
                   className="ghost button-login-change"
@@ -151,7 +151,7 @@ export default function Login({setLogged} : {setLogged: React.Dispatch<React.Set
               </div>
               <div className="overlay-panel overlay-right">
                 <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
+                <p>Enter your personal details and let me know you</p>
                 <button
                   className="ghost button-login-change"
                   id="signUp"

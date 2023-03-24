@@ -29,7 +29,6 @@ function App() {
   const [logged, setLogged] = useState<boolean>(false);
   const user: UserType = useGetMe(logged);
 
-  console.log("appRender");
   return (
     <div className="App">
       {switchComponent(user, setLogged)}
